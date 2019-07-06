@@ -17,6 +17,6 @@ export default class Board extends Component {
         </div>
       );
     });
-    return <div>{gameBoard}</div>;
+    return <div className="board">{gameBoard}</div>;
   }
 }

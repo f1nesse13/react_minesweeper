@@ -150,7 +150,9 @@ function (_Component) {
           });
         }));
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, gameBoard);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "board"
+      }, gameBoard);
     }
   }]);
 
@@ -234,26 +236,33 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var text, modalType;
+      var text, showModal;
 
       if (this.state.board.won()) {
-        modalType = 'won';
+        showModal = 'active';
         text = 'You won!';
       } else if (this.state.board.lost()) {
-        modalType = 'lost';
+        showModal = 'active';
         text = 'You lost!';
       } else {
+        showModal = '';
         text = '';
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Minesweeper"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, text), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Minesweeper"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "directions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Reveal all squares that are not trapped with a bomb!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Click on the squares to reveal them"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Holding alt while clicking will flag the square")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: this.state.board,
         updateGame: this.updateGame
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal ".concat(modalType)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "modal ".concat(showModal)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, text), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.restartGame.bind(this)
-      }, "Click to play again")));
+      }, "Click to play again")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-background"
+      })));
     }
   }]);
 
