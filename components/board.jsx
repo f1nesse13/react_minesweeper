@@ -5,6 +5,7 @@ export default class Board extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     const { board, updateGame } = this.props;
     const gameBoard = board.grid.map((row, i) => {

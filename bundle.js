@@ -256,9 +256,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -277,34 +277,41 @@ function (_Component) {
     _classCallCheck(this, Tile);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Tile).call(this, props));
-    _this.tile = _this.props.tile;
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.updateGame = _this.props.updateGame;
     return _this;
   }
 
   _createClass(Tile, [{
-    key: "tileStatus",
-    value: function tileStatus() {
-      if (this.tile.flagged === true) {
-        return '⚐';
-      } else if (this.tile.bombed && this.tile.explored) {
-        return '☠';
-      } else if (this.tile.explored && !this.tile.bombed) {
-        if (this.tile.adjacentBombCount() > 1) {
-          return this.tile.adjacentBombCount();
-        }
-
-        return '▢';
-      } else {
-        return ' ';
-      }
+    key: "handleClick",
+    value: function handleClick(e) {
+      var flagged = !!e.altKey;
+      this.updateGame(this.props.tile, flagged);
     }
   }, {
     key: "render",
     value: function render() {
+      var tile = this.props.tile;
+      var bombCnt, text, tileClass;
+
+      if (tile.flagged) {
+        tileClass = 'flagged';
+        text = '⚐';
+      } else if (tile.bombed && tile.explored) {
+        tileClass = 'bombed';
+        text = '☠';
+      } else if (tile.explored && !tile.bombed) {
+        tileClass = 'explored';
+        bombCnt = tile.adjacentBombCount();
+        text = bombCnt > 0 ? "".concat(bombCnt) : '';
+      } else {
+        tileClass = 'unexplored';
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "tile"
-      }, this.tileStatus());
+        className: "tile ".concat(tileClass),
+        onClick: this.handleClick
+      }, text);
     }
   }]);
 
