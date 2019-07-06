@@ -1,10 +1,57 @@
-.tile {
-  display:inline-block;
-  border: 1px solid #eee;
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.8);
-  border-style: inset; 
-  height: 15px;
-  width: 15px;
-  margin-bottom: -2px;
+#root>div>div{ 
+  display:flex;
+  flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  border: 0;
   padding: 0;
+  box-sizing: border-box;
+  font: 300 14px 'Lato';
+}
+
+h1 {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+p {
+  display: block;
+  height: 20px;
+}
+
+.row {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.row:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.tile {
+  background-color: lightgray;
+  float: left;
+  text-align: center;
+  border-width: 2px;
+  border-style: outset;
+  line-height: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.explored {
+  border-style: inset;
+}
+
+.bombed, .flagged {
+  color: red;
 }

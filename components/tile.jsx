@@ -19,7 +19,8 @@ export default class Tile extends Component {
 
     if (tile.flagged) {
       tileClass = 'flagged';
-      text = '⚐';
+      // text = '⚐';
+      text = '\u2691';
     } else if (tile.bombed && tile.explored) {
       tileClass = 'bombed';
       text = '☠';

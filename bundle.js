@@ -139,6 +139,7 @@ function (_Component) {
           updateGame = _this$props.updateGame;
       var gameBoard = board.grid.map(function (row, i) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "row",
           "data-row": i,
           key: i
         }, row.map(function (tile, j) {
@@ -216,14 +217,43 @@ function (_Component) {
 
   _createClass(Game, [{
     key: "updateGame",
-    value: function updateGame() {}
+    value: function updateGame(tile, flagged) {
+      flagged === true ? tile.toggleFlag() : tile.explore();
+      this.setState({
+        board: this.state.board
+      });
+    }
+  }, {
+    key: "restartGame",
+    value: function restartGame() {
+      var board = new _minesweeper__WEBPACK_IMPORTED_MODULE_1__["Board"](10, 10);
+      this.setState({
+        board: board
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      var text, modalType;
+
+      if (this.state.board.won()) {
+        modalType = 'won';
+        text = 'You won!';
+      } else if (this.state.board.lost()) {
+        modalType = 'lost';
+        text = 'You lost!';
+      } else {
+        text = '';
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Minesweeper"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, text), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: this.state.board,
         updateGame: this.updateGame
-      }));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal ".concat(modalType)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.restartGame.bind(this)
+      }, "Click to play again")));
     }
   }]);
 
@@ -295,8 +325,9 @@ function (_Component) {
       var bombCnt, text, tileClass;
 
       if (tile.flagged) {
-        tileClass = 'flagged';
-        text = '⚐';
+        tileClass = 'flagged'; // text = '⚐';
+
+        text = "\u2691";
       } else if (tile.bombed && tile.explored) {
         tileClass = 'bombed';
         text = '☠';
