@@ -5,7 +5,7 @@
   "main": "minesweeper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --watch --mode=development"
+    "webpack": "webpack --mode=development --watch"
   },
   "repository": {
     "type": "git",
